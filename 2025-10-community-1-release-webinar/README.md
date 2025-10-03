@@ -3,7 +3,7 @@
 </p>
 
 <div align="center">
-    <h1><code>`community-1`</code> release webinar</h1>
+    <h1><code>community-1</code> release webinar</h1>
 </div>
 
 
