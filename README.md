@@ -7,4 +7,4 @@
 </div>
 
 
-* Oct. xx, 2025 / [`community-1` release webinar](2025-10-community-1-release-webinar/)
+* Nov. 6th, 2025 / [`community-1` release webinar](2025-11-community-1-release-webinar/)
