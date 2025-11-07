@@ -6,7 +6,19 @@
     <h1><code>community-1</code> release webinar</h1>
 </div>
 
+<!-- [![Watch the webinar](https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg)](https://youtu.be/VIDEO_ID) -->
 
-INSERT YOUTUBE VIDEO HERE
+You can reproduce locally the `community-1` demo presented during the webinar in three simple steps:
 
-`uv run jupyter lab community-1-demo.ipynb`
+1. Clone the repository
+   ```bash
+   git clone https://github.com/pyannoteai/tutorials.git
+   ```  
+2. Move to this directory
+   ```bash
+   cd tutorials/2025-11-community-1-release-webinar
+   ```
+3. Run the notebook with [`uv`](https://docs.astral.sh/uv/)
+   ```bash
+   HF_TOKEN=... PYANNOTEAI_API_KEY=... uv run jupyter lab community-1-demo.ipynb
+   ```
