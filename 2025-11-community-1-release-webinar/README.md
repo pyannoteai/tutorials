@@ -6,7 +6,7 @@
     <h1><code>community-1</code> release webinar</h1>
 </div>
 
-<!-- [![Watch the webinar](https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg)](https://youtu.be/VIDEO_ID) -->
+[![Watch the webinar](https://img.youtube.com/vi/EJjNNhj4XB4/maxresdefault.jpg)](https://youtu.be/EJjNNhj4XB4)
 
 You can reproduce locally the `community-1` demo presented during the webinar in three simple steps:
 
