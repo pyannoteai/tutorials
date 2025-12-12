@@ -9,4 +9,3 @@
 
 * Nov. 6th, 2025 / [`community-1` release webinar](2025-11-community-1-release-webinar/)
 * Dec. 11th, 2025 / [`STT orchestration` demo](2025-12-stt-orchestration/)
-* 
