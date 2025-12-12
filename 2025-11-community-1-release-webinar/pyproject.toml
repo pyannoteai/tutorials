@@ -5,7 +5,7 @@ description = "community-1 release webinar demo"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "ipyannote>=0.1.6.post3",
+    "ipyannote==0.1.6.post3",
     "jupyterlab>=4.4.9",
     "pyannote-audio>=4.0.0",
 ]
