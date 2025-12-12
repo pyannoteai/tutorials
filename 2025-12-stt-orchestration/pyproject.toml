@@ -1,0 +1,13 @@
+[project]
+name = "2025-12-stt-orchestration"
+version = "0.1.0"
+description = "STT orchestration demo"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "ipyannote==0.2.0",
+    "jupyterlab>=4.5.0",
+    "pyannote-audio==4.0.3",
+    "pyannoteai-sdk==0.3.0",
+]
+
