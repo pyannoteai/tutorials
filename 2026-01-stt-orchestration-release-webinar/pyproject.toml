@@ -1,0 +1,26 @@
+[project]
+name = "2026-01-stt-orchestration-release-webinar"
+version = "0.1.0"
+description = "STT orchestration release webinar demo"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "jupyterlab>=4.5.0",
+    "pyannote-audio",
+    "pyannoteai-sdk==0.4.0",
+    "huggingface-hub>=0.34.6",
+    "nemo-toolkit[asr]==2.1.0",
+    "pyarrow<21.0.0",
+    "OmegaConf==2.3.0",
+    "ipyannote==0.3.0",
+    "meeteval>=0.4.3",
+    "kaldialign==0.9.3",
+]
+
+[tool.uv]
+override-dependencies = [
+    "numpy<2.0.0"
+]
+
+[tool.uv.sources]
+pyannote-audio = { git = "https://github.com/pyannote/pyannote-audio", rev = "09141d04e94143a2df9aedff9e9426eb79f12d27" }
