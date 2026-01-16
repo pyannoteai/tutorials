@@ -7,7 +7,7 @@
 </div>
 
 
-<!-- [![Watch the webinar](https://img.youtube.com/vi/xxxxxxxx/maxresdefault.jpg)](https://youtu.be/xxxxxxx) -->
+[![Watch the webinar](https://img.youtube.com/vi/bfhG6IYvCeI/maxresdefault.jpg)](https://youtu.be/bfhG6IYvCeI)
 
 You can reproduce locally the `STT orchestration` demo presented during the webinar in three simple steps:
 
