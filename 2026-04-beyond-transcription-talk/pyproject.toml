@@ -1,0 +1,25 @@
+[project]
+name = "2026-04-beyond-transcription-talk"
+version = "0.1.0"
+description = "Beyond transcription AI Engineer London"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "jupyterlab>=4.5.0",
+    "pyannote-audio==4.0.4",
+    "pyannote-metrics==4.0.0",
+    "pyannoteai-sdk==0.4.0",
+    "huggingface-hub>=0.34.6",
+    "nemo-toolkit[asr]==2.1.0",
+    "pyarrow<21.0.0",
+    "OmegaConf==2.3.0",
+    "ipyannote==0.5.1",
+    "meeteval>=0.4.3",
+    "kaldialign==0.9.3",
+]
+
+[tool.uv]
+override-dependencies = [
+    "numpy<2.0.0"
+]
+
