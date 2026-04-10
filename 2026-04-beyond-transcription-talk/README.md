@@ -9,7 +9,7 @@
 
 <!-- [![Watch the talk](https://img.youtube.com/vi/xxxxxxxx/maxresdefault.jpg)](https://youtu.be/xxxxxx) -->
 
-You can reproduce locally the `Beyond transcription` demo presented during the talk in three simple steps:
+You can reproduce locally the `Beyond transcription` demo presented during the talk in four simple steps:
 
 
 1. Clone the repository
