@@ -11,3 +11,4 @@
 * Dec. 11th, 2025 / [`STT orchestration` demo](2025-12-stt-orchestration/)
 * Jan. 15th, 2026 / [`STT orchestration` release webinar](2026-01-stt-orchestration-release-webinar/) 
 * April. 10th, 2026 / [`Beyond transcription` AI Engineer London](2026-04-beyond-transcription-talk/)
+* July. 6th, 2026 / [`Live subtitling` demo](2026-07-live-subtitling/)
