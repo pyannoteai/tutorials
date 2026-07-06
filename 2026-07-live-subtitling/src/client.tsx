@@ -25,10 +25,16 @@ function downsample(input: Float32Array, rate: number) {
 }
 
 const PER_PAGE = 14;
+const SPEAKER_COLORS = 8;
 
 function page(words: string[], index: number) {
   const start = index * PER_PAGE;
   return words.slice(start, start + PER_PAGE).join(" ");
+}
+
+function speakerClassName(value: string | null) {
+  if (!value) return "";
+  return `speaker-${Number(value.slice(-1)) % SPEAKER_COLORS}`;
 }
 
 function App() {
@@ -45,11 +51,17 @@ function App() {
   const captureNode = useRef<AudioWorkletNode | null>(null);
   const [status, setStatus] = useState("idle");
   const [speaker, setSpeaker] = useState<string | null>(null);
+  const [speakerColor, setSpeakerColor] = useState("");
   const [text, setText] = useState("");
 
   function setStreaming(value: boolean) {
     streaming.current = value;
     captureNode.current?.port.postMessage({ streaming: value });
+  }
+
+  function setCurrentSpeaker(value: string | null) {
+    setSpeaker(value);
+    setSpeakerColor(speakerClassName(value));
   }
 
   /*
@@ -80,14 +92,14 @@ function App() {
       if (message.type === "failed") failedCallback.current?.(message.text);
 
       if (message.type === "partial") {
-        setSpeaker(message.speaker);
+        setCurrentSpeaker(message.speaker);
         const words = message.text.trim().split(/\s+/).filter(Boolean);
         const pageIndex = Math.max(0, Math.floor((words.length - 1) / PER_PAGE));
         setText(page(words, pageIndex));
       }
 
       if (message.type === "final") {
-        setSpeaker(message.speaker);
+        setCurrentSpeaker(message.speaker);
         const words = message.text.trim().split(/\s+/).filter(Boolean);
         const pageIndex = Math.max(0, Math.floor((words.length - 1) / PER_PAGE));
         setText(page(words, pageIndex));
@@ -215,9 +227,9 @@ function App() {
           onPause={pause}
         />
         {text && (
-          <div class="sub">
+          <div class={`sub ${speakerColor}`}>
             {speaker && <span class="lbl">{speaker}</span>}
-            <span>{text}</span>
+            <span class="txt">{text}</span>
           </div>
         )}
       </section>
@@ -285,14 +297,40 @@ main {
   margin-bottom: 8px;
 }
 
-.sub span {
+.sub .txt {
   display: inline;
   white-space: pre-wrap;
   background: rgba(0, 0, 0, 0.72);
+  color: #f59e0b;
   padding: 3px 9px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
+
+.sub.speaker-0 .lbl { background: #38bdf8; color: #03141e; }
+.sub.speaker-0 .txt { color: #38bdf8; }
+
+.sub.speaker-1 .lbl { background: #fb7185; color: #2b070d; }
+.sub.speaker-1 .txt { color: #fb7185; }
+
+.sub.speaker-2 .lbl { background: #a3e635; color: #17210a; }
+.sub.speaker-2 .txt { color: #a3e635; }
+
+.sub.speaker-3 .lbl { background: #facc15; color: #241a04; }
+.sub.speaker-3 .txt { color: #facc15; }
+
+.sub.speaker-4 .lbl { background: #c084fc; color: #1e0b31; }
+.sub.speaker-4 .txt { color: #c084fc; }
+
+.sub.speaker-5 .lbl { background: #2dd4bf; color: #04231f; }
+.sub.speaker-5 .txt { color: #2dd4bf; }
+
+.sub.speaker-6 .lbl { background: #fb923c; color: #2b1003; }
+.sub.speaker-6 .txt { color: #fb923c; }
+
+.sub.speaker-7 .lbl { background: #818cf8; color: #0f1230; }
+.sub.speaker-7 .txt { color: #818cf8; }
 
 .controls {
   display: flex;

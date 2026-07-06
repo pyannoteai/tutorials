@@ -13,6 +13,8 @@ type Client = { send(data: string): void };
 
 class Session {
   activeSpeakers: string[] = [];
+  transcriptSpeaker: string | null = null;
+  finalSpeaker: string | null = null;
   uncommitted = false;
   pyannote?: WebSocket;
   openai?: OpenAIRealtimeWebSocket;
@@ -104,10 +106,10 @@ class Session {
         }
 
         if (message.type === "diarization_speaker_end") {
+          this.commit(this.transcriptSpeaker ?? diarization.speaker);
           this.activeSpeakers = this.activeSpeakers.filter(
             (speaker) => speaker !== diarization.speaker,
           );
-          this.commit();
         }
 
         if (message.type === "error") {
@@ -122,7 +124,7 @@ class Session {
     Step 4B/5: receive transcript and reconcile
 
     OpenAI sends partial words and final transcript text.
-    current pyannoteAI speaker becomes transcript speaker label.
+    first pyannoteAI speaker seen for this transcript becomes its label.
     This is reconciliation point: diarization state + transcript text -> client event.
     Timestamped segment matching belongs here when tighter alignment is needed.
   */
@@ -150,19 +152,22 @@ class Session {
 
       socket.on("conversation.item.input_audio_transcription.delta", ({ delta = "" }) => {
         partialTranscript += delta;
+        this.transcriptSpeaker ??= this.speaker;
         console.log(`openai delta -> ${delta.length} chars`);
-        this.send({ type: "partial", speaker: this.speaker, text: partialTranscript });
+        this.send({ type: "partial", speaker: this.transcriptSpeaker, text: partialTranscript });
       });
 
       socket.on("conversation.item.input_audio_transcription.completed", (event) => {
         const text = event.transcript.trim();
-        const speaker = this.speaker;
+        const speaker = this.finalSpeaker ?? this.transcriptSpeaker ?? this.speaker;
 
         console.log(`openai final -> ${text.length} chars -> ${speaker ?? "none"}`);
 
         if (text) this.send({ type: "final", speaker, text });
 
         partialTranscript = "";
+        this.transcriptSpeaker = null;
+        this.finalSpeaker = null;
       });
 
       socket.socket.addEventListener(
@@ -204,7 +209,9 @@ class Session {
   async audio(data: Blob | ArrayBufferLike) {
     if (!this.pyannote || !this.openai || this.pyannote.readyState !== WebSocket.OPEN) return;
 
-    const buffer = data instanceof Blob ? await data.arrayBuffer() : data;
+    const bytes = data instanceof Blob ? new Uint8Array(await data.arrayBuffer()) : new Uint8Array(data);
+    const buffer = new ArrayBuffer(bytes.byteLength);
+    new Uint8Array(buffer).set(bytes);
     const samples = new Float32Array(buffer);
 
     this.chunks += 1;
@@ -221,10 +228,11 @@ class Session {
     this.uncommitted = true;
   }
 
-  commit() {
+  commit(speaker: string | null = this.transcriptSpeaker ?? this.speaker) {
     if (!this.openai || !this.uncommitted) return;
 
     console.log(`commit -> ${this.chunks} chunks`);
+    this.finalSpeaker = speaker;
     this.openai.send({ type: "input_audio_buffer.commit" });
 
     this.uncommitted = false;
