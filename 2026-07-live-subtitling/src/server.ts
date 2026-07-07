@@ -5,7 +5,9 @@ import { OpenAIRealtimeWebSocket } from "openai/realtime/websocket";
 import { resolve } from "node:path";
 
 const app = new Hono();
-const VIDEO = resolve(Bun.argv[2] ?? "samples/podcast_clip.mp4");
+const video = Bun.argv[2];
+if (!video) throw new Error("usage: bun run start ./samples/podcast_clip.mp4");
+const VIDEO = resolve(video);
 const SAMPLE_RATE = 16_000;
 const OPENAI_RATE = 24_000;
 
@@ -33,7 +35,7 @@ class Session {
   }
 
   /*
-    Step 1/5: connect live APIs
+    Connect live APIs
 
     Server creates one pyannoteAI Live stream with REST.
     Response contains WebSocket URL for diarization events.
@@ -66,7 +68,7 @@ class Session {
   }
 
   /*
-    Step 4A/5: receive pyannoteAI diarization
+    Receive pyannoteAI diarization
 
     pyannoteAI sends speaker_start and speaker_end events.
     activeSpeakers[] is current speaker stack.
@@ -121,7 +123,7 @@ class Session {
   }
 
   /*
-    Step 4B/5: receive transcript and reconcile
+    Receive transcript and reconcile
 
     OpenAI sends partial words and final transcript text.
     first pyannoteAI speaker seen for this transcript becomes its label.
@@ -199,7 +201,7 @@ class Session {
   }
 
   /*
-    Step 3/5: send audio to both APIs
+    Send audio to both APIs
 
     pyannoteAI gets original 16 kHz Float32 PCM.
     OpenAI gets 24 kHz 16-bit base64 PCM.
@@ -246,7 +248,7 @@ class Session {
 }
 
 /*
-  Step 3 helper: prepare audio for OpenAI
+  Prepare audio for OpenAI
 
   Small 16 kHz -> 24 kHz resampler.
   Clamp Float32 samples to int16 PCM.

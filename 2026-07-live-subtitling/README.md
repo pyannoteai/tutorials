@@ -37,16 +37,16 @@ You can reproduce this `Live subtitling` demo in five simple steps:
    bun install
    ```
 
-4. Provide a video file (e.g. an interview or podcast clip with several speakers), copy your API keys into a local `.env` from the bundled example, and drop your clip into the bundled `samples/` directory:
+4. Copy your API keys into a local `.env` from the bundled example:
 
    ```bash
-   cp /path/to/your/clip.mp4 samples/podcast_clip.mp4
    cp .env.example .env   # then edit .env to fill in your keys
    ```
 
-5. Build the client and start the server
+5. Build the client and start the server with any video file path (e.g. an interview or podcast clip with several speakers):
+
    ```bash
-   bun run start
+   bun run start ./samples/podcast_clip.mp4
    ```
 
 Open <http://localhost:3000>, press play, and live subtitles with speaker labels should appear over the video.
@@ -54,5 +54,5 @@ Open <http://localhost:3000>, press play, and live subtitles with speaker labels
 To rebuild the client automatically while editing, use the hot-reloading dev script:
 
 ```bash
-bun run dev
+bun run dev ./samples/podcast_clip.mp4
 ```

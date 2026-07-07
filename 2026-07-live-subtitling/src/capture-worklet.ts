@@ -11,7 +11,7 @@ declare function registerProcessor(
 ): void;
 
 /*
-  Step 2 worklet: low-latency audio tap
+  Low-latency browser audio tap
 
   Collect Float32 samples from audio rendering thread.
   Batch until 4096 samples, then post to UI thread.

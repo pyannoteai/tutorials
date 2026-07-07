@@ -5,8 +5,8 @@
   "module": "src/server.ts",
   "scripts": {
     "build": "bun build ./src/client.tsx ./src/capture-worklet.ts --outdir ./dist --target browser",
-    "start": "bun run build && bun --env-file=.env src/server.ts samples/podcast_clip.mp4",
-    "dev": "bun run build && bun --env-file=.env --hot src/server.ts samples/podcast_clip.mp4"
+    "start": "bun run build && bun --env-file=.env src/server.ts",
+    "dev": "bun run build && bun --env-file=.env --hot src/server.ts"
   },
   "dependencies": {
     "hono": "^4.12.27",

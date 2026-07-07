@@ -4,7 +4,7 @@ import { render } from "hono/jsx/dom";
 const RATE = 16_000;
 
 /*
-  Step 2/5: prepare browser audio for streaming
+  Prepare browser audio for streaming
 
   Browser video audio usually arrives at 44.1/48 kHz.
   pyannoteAI Live diarization receives steady 16 kHz PCM.
@@ -65,7 +65,7 @@ function App() {
   }
 
   /*
-    Step 5/5: receive server events for visualization
+    Receive server events for visualization
 
     Server sends status, partial, and final events.
     Client renders current speaker plus newest text page.
@@ -114,7 +114,7 @@ function App() {
   }
 
   /*
-    Step 2 continued: capture audio from video
+    Capture audio from video
 
     AudioWorklet reads samples from video element.
     UI thread receives Float32 chunks, downsamples, then sends binary WS frames.
